@@ -11,7 +11,7 @@ const SECONDS_IN_MONTH = 2592000;
 class TimeService
 {
 
-    public function breakTime(array $data): array
+    public function getTimeBreakDownDuration(array $data): array
     {
         $response = [];
         $timeExpressions = $data["expressions"];

@@ -15,7 +15,7 @@ class TimeController extends Controller {
 
     public function getDurationDetails(Request $request): \Illuminate\Http\JsonResponse
     {
-        $details = $this->timeService->breakTime($this->buildParameters($request));
+        $details = $this->timeService->getTimeBreakDownDuration($this->buildParameters($request));
 
         return new \Illuminate\Http\JsonResponse(
             ['message' => 'API that takes timestamps with expressions',
