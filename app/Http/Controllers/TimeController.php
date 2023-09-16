@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Services\TimeService;
 use Illuminate\Http\Request;
 
-class TimeController extends Controller {
-
+class TimeController extends Controller
+{
     private TimeService $timeService;
 
     public function __construct(TimeService $timeService)
@@ -15,15 +16,17 @@ class TimeController extends Controller {
 
     public function getDurationDetails(Request $request): \Illuminate\Http\JsonResponse
     {
-        $details = $this->timeService->getTimeBreakDownDuration($this->buildParameters($request));
+        $inputParameters = $this->buildParameters($request);
+        $details = $this->timeService->getTimeBreakDownDuration($inputParameters);
 
         return new \Illuminate\Http\JsonResponse(
             ['message' => 'API that takes timestamps with expressions',
-             'data' => $details
+                'data' => $details
             ]);
     }
 
-    public function buildParameters(Request $request) {
+    public function buildParameters(Request $request)
+    {
         return [
             'first_timestamp' => $request->input('first_timestamp'),
             'second_timestamp' => $request->input('second_timestamp'),
