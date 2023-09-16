@@ -12,7 +12,6 @@ class TimeController extends Controller {
             'second_timestamp' => $request->input('second_timestamp'),
             'expressions' => $request->input('expressions')
         ];
-
         return new \Illuminate\Http\JsonResponse(['message' => 'API that takes timestamps with expressions']);
     }
 }
