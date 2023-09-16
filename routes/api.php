@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/timestamp-duration-breakdown',
-    [\App\Http\Controllers\TimeController::class, 'calculateTimeDifferenceDetails'])
+    [\App\Http\Controllers\TimeController::class, 'getDurationDetails'])
 ->middleware("validate");
