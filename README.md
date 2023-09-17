@@ -35,7 +35,8 @@ Prerequisite to run docker app
 - Execute `docker-compose up --build --force-recreate`
 
 ## APIs
-- **First API**:
+### First API
+- **API to breakdown time into expressed timestamps**:
 `http://localhost:3000/api/timestamp-duration-breakdown`
 - **Method**: POST
 - **Request body**:
@@ -65,7 +66,8 @@ The API expects a JSON request body with the following format:
   }'`
 
 
-- **Second API**: `localhost:3000/api/search-timestamps?first_timestamp=2020-03-12 00:10:22&second_timestamp=2020-03-16 00:11:10`
+### Second API
+- **API to search time breakdown history**: `localhost:3000/api/search-timestamps?first_timestamp=2020-03-12 00:10:22&second_timestamp=2020-03-16 00:11:10`
 - **Method**: GET
 - **Response**
   `{
