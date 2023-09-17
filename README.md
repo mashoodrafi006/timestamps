@@ -35,7 +35,8 @@ Prerequisite to run docker app
 - Execute `docker-compose up --build --force-recreate`
 
 ## APIs
-- **First API**: `http://localhost:3000/api/timestamp-duration-breakdown`
+- **First API**:
+`http://localhost:3000/api/timestamp-duration-breakdown`
 - **Method**: POST
 - **Request body**:
 The API expects a JSON request body with the following format:
@@ -54,8 +55,14 @@ The API expects a JSON request body with the following format:
   "3s": "16.00"
   }
   }`
-
-
+- Sample curl request
+`curl --location 'localhost:3000/api/timestamp-duration-breakdown' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "first_timestamp": "2020-03-12 00:10:22",
+  "second_timestamp": "2020-03-16 00:11:10",
+  "expressions":["3s","1d", "2h", "1m"]
+  }'`
 
 
 - **Second API**: `localhost:3000/api/search-timestamps?first_timestamp=2020-03-12 00:10:22&second_timestamp=2020-03-16 00:11:10`
@@ -83,6 +90,8 @@ The API expects a JSON request body with the following format:
   "updated_at": "2023-09-17T18:32:29.000000Z"
   }
   }`
+- Sample curl request
+`curl --location 'localhost:3000/api/search-timestamps?first_timestamp=2020-03-12%2000%3A10%3A22&second_timestamp=2020-03-16%2000%3A11%3A10'`
 
 ## Journal
 Please go through JOURNAL.md for more details around the project.
