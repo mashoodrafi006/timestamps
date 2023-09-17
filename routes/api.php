@@ -23,4 +23,5 @@ Route::post('/timestamp-duration-breakdown',
 ->middleware("validate");
 
 Route::get('/search-timestamps',
-    [\App\Http\Controllers\TimeController::class, 'searchBreakdownsByTimestamps']);
+    [\App\Http\Controllers\TimeController::class, 'searchBreakdownsByTimestamps'])
+    ->middleware("times.history");
