@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ *
+ */
 class TimeBreakdownHistory
 {
     /**
@@ -24,6 +27,10 @@ class TimeBreakdownHistory
         return $next($request);
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function buildParameters(Request $request)
     {
         return [
@@ -33,6 +40,10 @@ class TimeBreakdownHistory
         ];
     }
 
+    /**
+     * @param array $data
+     * @return \Illuminate\Validation\Validator
+     */
     public function validateTimeInput(array $data): \Illuminate\Validation\Validator
     {
         $rules = [

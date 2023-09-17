@@ -3,17 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Services\TimeService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ *
+ */
 class TimeController extends Controller
 {
+    /**
+     * @var TimeService
+     */
     private TimeService $timeService;
 
+    /**
+     * @param TimeService $timeService
+     */
     public function __construct(TimeService $timeService)
     {
         $this->timeService = $timeService;
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function getDurationDetails(Request $request): \Illuminate\Http\JsonResponse
     {
         $inputParameters = $this->buildParameters($request);
@@ -25,6 +39,10 @@ class TimeController extends Controller
             ]);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function searchBreakdownsByTimestamps(Request $request): \Illuminate\Http\JsonResponse
     {
         $startTimestamp = $request->input('first_timestamp');
@@ -37,6 +55,10 @@ class TimeController extends Controller
             ]);
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function buildParameters(Request $request)
     {
         return [

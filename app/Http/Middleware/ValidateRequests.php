@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ *
+ */
 class ValidateRequests
 {
     /**
@@ -24,6 +27,10 @@ class ValidateRequests
         return $next($request);
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function buildParameters(Request $request)
     {
         return [
@@ -33,6 +40,10 @@ class ValidateRequests
         ];
     }
 
+    /**
+     * @param array $data
+     * @return \Illuminate\Validation\Validator
+     */
     public function validateTimeInput(array $data): \Illuminate\Validation\Validator
     {
         $rules = [
