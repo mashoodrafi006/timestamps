@@ -20,8 +20,20 @@ class TimeController extends Controller
         $details = $this->timeService->getTimeBreakDownDuration($inputParameters);
 
         return new \Illuminate\Http\JsonResponse(
-            ['message' => 'API that takes timestamps with expressions',
+            ['message' => 'Difference in times breakdown',
                 'data' => $details
+            ]);
+    }
+
+    public function searchBreakdownsByTimestamps(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $startTimestamp = $request->input('first_timestamp');
+        $endTimestamp = $request->input('second_timestamp');
+
+        $timeBreakdownHistory = $this->timeService->searchBreakdownsByTimestamps($startTimestamp, $endTimestamp);
+        return new \Illuminate\Http\JsonResponse(
+            ['message' => 'Time breakdown history',
+                'data' => $timeBreakdownHistory
             ]);
     }
 

@@ -14,4 +14,10 @@ class TimeBreakdownRepository
     function save(TimeBreakdown $timeBreakdown) {
         $timeBreakdown->save();
     }
+
+    function findByTimes(string $firstTimestamp, string $secondTimestamp) {
+        return TimeBreakdown::where('first_timestamp', $firstTimestamp)
+            ->where('second_timestamp', $secondTimestamp)
+            ->first();
+    }
 }

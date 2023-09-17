@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/timestamp-duration-breakdown',
     [\App\Http\Controllers\TimeController::class, 'getDurationDetails'])
 ->middleware("validate");
+
+Route::get('/search-timestamps',
+    [\App\Http\Controllers\TimeController::class, 'searchBreakdownsByTimestamps']);

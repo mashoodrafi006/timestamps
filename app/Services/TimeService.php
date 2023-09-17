@@ -20,6 +20,10 @@ class TimeService
         $this->timeBreakdownRepository = $timeBreakdownRepository;
     }
 
+    /**
+     * @param array $data
+     * @return array
+     */
     public function getTimeBreakDownDuration(array $data): array
     {
         $response = [];
@@ -57,6 +61,20 @@ class TimeService
         return $response;
     }
 
+    /**
+     * @param string $
+     * @param string $
+     * @return void
+     */
+    public function searchBreakdownsByTimestamps(string $firstTimestamp, string $secondTimestamp) {
+        return $this->timeBreakdownRepository->findByTimes($firstTimestamp, $secondTimestamp);
+    }
+
+    /**
+     * @param array $data
+     * @param array $response
+     * @return void
+     */
     private function saveTimesBreakdown(array $data, array $response)
     {
         $timeBreakDown = new TimeBreakdown(["first_timestamp" => $data["first_timestamp"],
