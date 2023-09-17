@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\TimeBreakdown;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 /**
  *
@@ -22,7 +24,11 @@ class TimeBreakdownRepository
      * @return void
      */
     function save(TimeBreakdown $timeBreakdown) {
-        $timeBreakdown->save();
+        try {
+            $timeBreakdown->save();
+        } catch (QueryException $e) {
+            Log::error("Exception: " . $e);
+        }
     }
 
     /**
