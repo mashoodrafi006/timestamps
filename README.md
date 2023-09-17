@@ -1,66 +1,88 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Purpose & requirements
+The application must expose an endpoint that accepts two timestamps and a
+list of time expressions, and returns a breakdown of the duration between the two timestamps
+using the given time expressions. The application should keep track of all the breakdowns
+executed in some persistence layer. Another endpoint should be exposed to search these
+stored breakdowns by the input timestamps.
+A time expression is a string like “[integer]time_unit”. The time unit can be any of: “s” (seconds),
+“i” (minutes), “h” (hours), “d” (day), and “m” (months). The optional integer indicates how many
+units of the time unit the expression includes, defaulting to 1. You can assume that a month is
+always 30 days, instead of using calendar months.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Technologies
 
-## About Laravel
+- Docker app
+- PHP 8.2.10 (cli) (built: Aug 31 2023 18:52:55) (NTS)
+- Laravel Framework 10.23.1
+- Composer version 2.6.3 2023-09-15 09:38:21
+- sqlite database
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Local
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Navigate to project root directory
+- Run "composer install"
+- Run "cp .env.example .env"
+- Replace DB_DATABASE with absolute path of your sqlite db in .env file i.e. (/var/www/html/database/database.sqlite)
+- Run "php artisan key:generate"
+- Run "php artisan migrate"
+- Run "php artisan serve --port=3000"
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### Docker
+Prerequisite to run docker app
+- Have docker installed
+- Navigate to project root directory
+- Execute `docker-compose up --build --force-recreate`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## APIs
+- **First API**: `http://localhost:3000/api/timestamp-duration-breakdown`
+- **Method**: POST
+- **Request body**:
+The API expects a JSON request body with the following format:
+`  {
+  "first_timestamp": "2020-03-12 00:10:22",
+  "second_timestamp": "2020-03-16 00:11:10",
+  "expressions":["3s","1d", "2h", "1m"]
+  }`
+- **Response**
+`  {
+  "message": "Difference in times breakdown",
+  "data": {
+  "1m": 0,
+  "1d": "4.00",
+  "2h": 0,
+  "3s": "16.00"
+  }
+  }`
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- **Second API**: `localhost:3000/api/search-timestamps?first_timestamp=2020-03-12 00:10:22&second_timestamp=2020-03-16 00:11:10`
+- **Method**: GET
+- **Response**
+  `{
+  "message": "Time breakdown history",
+  "data": {
+  "id": 1,
+  "first_timestamp": "2020-03-12 00:10:22",
+  "second_timestamp": "2020-03-16 00:11:10",
+  "expressions": [
+  "3s",
+  "1d",
+  "2h",
+  "1m"
+  ],
+  "time_breakdown": {
+  "1m": 0,
+  "1d": "4.00",
+  "2h": 0,
+  "3s": "16.00"
+  },
+  "created_at": "2023-09-17T18:32:29.000000Z",
+  "updated_at": "2023-09-17T18:32:29.000000Z"
+  }
+  }`
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Journal
+Please go through JOURNAL.md for more details around the project.

@@ -27,6 +27,6 @@ COPY entrypoint.sh /var/www/html/entrypoint.sh
 CMD ["/bin/sh", "/var/www/html/entrypoint.sh"]
 
 # Expose the application port
-EXPOSE 12000
+EXPOSE 3000
 
 
